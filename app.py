@@ -8,13 +8,15 @@ QUOTES = [
     "Kubernetes is just Docker with a management degree.",
     "There is no cloud, just other people's computers.",
     "Deploying on Friday is living life on the edge.",
-    "Pipelines are green, servers are blue, Docker is awesome and so are you!"
+    "Pipelines are green, servers are blue, Docker is awesome and so are you!",
+    "das ist mein eigenes testzitat"
 ]
 
 @app.route('/')
 def home():
     quote = random.choice(QUOTES)
-    return f"<h1>DevOps Quote of the Day:</h1><p>'{quote}'</p>"
+    return f"<h1>DevOps Quote of the Day:</h1><p>'{quote}'</p><p><i>Erstellt von Mages</i></p>"
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

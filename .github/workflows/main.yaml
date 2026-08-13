@@ -1,6 +1,5 @@
 name: DevOps Quote App CI
 
-# Startet automatisch bei jedem Git Push auf den main-Branch
 on:
   push:
     branches: [ "main", "master" ]
@@ -10,16 +9,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Code aus dem GitHub-Repository auschecken
+      # 1. Code auschecken
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. Docker Build-Umgebung einrichten
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      # 2. Python auf dem Runner einrichten
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-      # 3. Testen, ob sich das Docker Image bauen lässt
+      # 3. SYNTAX-CHECK (Prüft auf Tippfehler wie 'retun')
+      - name: Check Python Syntax
+        run: |
+          python -m py_compile app.py
+
+      # 4. Docker Build (wird nur ausgeführt, wenn Schritt 3 erfolgreich war!)
       - name: Build Docker Image
         run: |
           docker build -t devops-quote-app:${{ github.sha }} .
-          echo "Pipeline erfolgreich! Der Docker Build hat funktioniert."

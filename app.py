@@ -7,7 +7,8 @@ QUOTES = [
     "It works on my machine! - Every Dev ever",
     "Kubernetes is just Docker with a management degree.",
     "There is no cloud, just other people's computers.",
-    "Deploying on Friday is living life on the edge."
+    "Deploying on Friday is living life on the edge.",
+    "Pipelines are green, servers are blue, Docker is awesome and so are you!"
 ]
 
 @app.route('/')

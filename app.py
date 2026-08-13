@@ -15,7 +15,7 @@ QUOTES = [
 @app.route('/')
 def home():
     quote = random.choice(QUOTES)
-    return f"<h1>DevOps Quote of the Day:</h1><p>'{quote}'</p><p><i>Erstellt von Mages</i></p>"
+    retun f"<h1>DevOps Quote of the Day:</h1><p>'{quote}'</p><p><i>Erstellt von Mages</i></p>"
 
 
 if __name__ == '__main__':

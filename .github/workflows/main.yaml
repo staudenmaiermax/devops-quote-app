@@ -1,11 +1,11 @@
-name: DevOps Quote App CI
+name: DevOps Quote App CI/CD
 
 on:
   push:
     branches: [ "main", "master" ]
 
 jobs:
-  build-test:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,12 +19,25 @@ jobs:
         with:
           python-version: '3.11'
 
-      # 3. SYNTAX-CHECK (Prüft auf Tippfehler wie 'retun')
+      # 3. SYNTAX-CHECK
       - name: Check Python Syntax
         run: |
           python -m py_compile app.py
 
-      # 4. Docker Build (wird nur ausgeführt, wenn Schritt 3 erfolgreich war!)
-      - name: Build Docker Image
-        run: |
-          docker build -t devops-quote-app:${{ github.sha }} .
+      # 4. Bei Docker Hub anmelden (mit deinen Secrets)
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 5. Docker Image bauen und zu Docker Hub pushen
+      # ACHTUNG: Ersetze 'DEIN_DOCKERHUB_BENUTZERNAME' unten mit deinem echten Usernamen!
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            DEIN_DOCKERHUB_BENUTZERNAME/devops-quote-app:latest
+            DEIN_DOCKERHUB_BENUTZERNAME/devops-quote-app:${{ github.sha }}

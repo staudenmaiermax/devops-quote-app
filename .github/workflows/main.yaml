@@ -39,5 +39,5 @@ jobs:
           context: .
           push: true
           tags: |
-            DEIN_DOCKERHUB_BENUTZERNAME/devops-quote-app:latest
-            DEIN_DOCKERHUB_BENUTZERNAME/devops-quote-app:${{ github.sha }}
+            daymolockg/devops-quote-app:latest
+            daymolockg/devops-quote-app:${{ github.sha }}
